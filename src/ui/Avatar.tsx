@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { lazy, useState } from "react";
+
+import { useAuth } from "../contexts/AuthContext";
 
 import Modal from "./Modal";
-import Profile from "./Profile";
-import { useAuth } from "../contexts/AuthContext";
-import UpdateSelfProfileForm from "../features/Self-profile/UpdateSelfProfileForm";
+const Profile = lazy(() => import("./Profile"));
+const UpdateSelfProfileForm = lazy(() => import("../features/Self-profile/UpdateSelfProfileForm"));
 
 export default function Avatar(): JSX.Element {
     const [showProfile, setShowProfile] = useState<boolean>(false);
     const [showEditProfile, setShowEditProfile] = useState<boolean>(false);
 
     const { auth } = useAuth();
-    const { firstName, lastName, email, phone, city, profileImage, createdAt, type } = auth?.superUser || {};
+    const { id, firstName, lastName, email, phone, city, profileImage, createdAt, type } = auth?.superUser || {};
 
 
     const handleCloseModal = () => {
@@ -25,6 +26,7 @@ export default function Avatar(): JSX.Element {
                 alt={firstName + " " + lastName + "'s profile picture"}
                 className="h-12 w-12 object-cover rounded-xl self-end cursor-pointer"
                 onClick={() => setShowProfile(true)}
+                loading="lazy"
             />
 
             {showProfile && (
@@ -41,6 +43,7 @@ export default function Avatar(): JSX.Element {
                         />
                     ) : (
                         <Profile
+                            id={id}
                             name={firstName + " " + lastName}
                             email={email}
                             phone={phone}

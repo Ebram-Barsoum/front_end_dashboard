@@ -17,6 +17,8 @@ import VerificationForm from "./features/Authentication/VerificationForm";
 import ResetPasswordForm from "./features/Authentication/ResetPasswordForm";
 import NotFound from "./views/NotFound";
 
+const CompletedOrderDetails = lazy(() => import("./features/Completed-orders/CompletedOrderDetails"));
+const UcompletedOfferDetails = lazy(() => import("./features/Uncompleted-offers/UncompletedOfferDetails"));
 //localStorage.removeItem("auth");
 
 const routes = [
@@ -26,11 +28,13 @@ const routes = [
   { href: 'add-truck', component: lazy(() => import('./views/AddTruck')) },
   { href: 'add-package', component: lazy(() => import('./views/AddPackage')) },
   { href: 'completed-orders', component: lazy(() => import('./views/CompletedOrders')) },
-  { href: 'incompleted-orders', component: lazy(() => import('./views/IncompletedOrders')) },
-  { href: 'offers', component: lazy(() => import('./views/Offers')) },
+  { href: 'uncompleted-offers', component: lazy(() => import('./views/UncompletedOffers')) },
+  { href: 'offers', component: lazy(() => import('./views/Discounts')) },
   { href: 'tickets', component: lazy(() => import('./views/Tickets')) },
   { href: 'reports', component: lazy(() => import('./views/Reports')) },
   { href: 'app-setting', component: lazy(() => import('./views/AppSetting')) },
+  { href: 'shifts', component: lazy(() => import('./views/Shifts')) },
+  { href: 'coupons', component: lazy(() => import('./views/Coupons')) },
 ];
 
 const queryClient = new QueryClient({
@@ -42,7 +46,7 @@ const queryClient = new QueryClient({
   }
 });
 
-function App() {
+function App(): JSX.Element {
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -79,6 +83,10 @@ function App() {
                 {routes.map(({ href, component: Component }) => (
                   <Route key={href} path={href} element={<Suspense fallback={<Loader />}><Component /></Suspense>} />
                 ))}
+
+                <Route path="/completed-orders/:orderNumber" element={<Suspense fallback={<Loader />}><CompletedOrderDetails /></Suspense>} />
+                <Route path="/uncompleted-offers/:offerId" element={<Suspense fallback={<Loader />}><UcompletedOfferDetails /></Suspense>} />
+
                 <Route path="*" element={<NotFound />} />
               </Route>
 

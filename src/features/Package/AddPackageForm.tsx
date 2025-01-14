@@ -135,6 +135,7 @@ export default function AddPackageForm(): JSX.Element {
                                                 onChange={field.onChange}
                                                 placeholder="Select shipment type"
                                                 className={menuStyle}
+                                                width="100%"
                                                 placeholderIcon={<DropDownIcon />}
                                             />
                                         );
@@ -177,6 +178,7 @@ export default function AddPackageForm(): JSX.Element {
                                                 onChange={field.onChange}
                                                 placeholder="Select truck type"
                                                 className={menuStyle}
+                                                width="100%"
                                                 placeholderIcon={<DropDownIcon />}
                                             />
                                         );
@@ -215,6 +217,7 @@ export default function AddPackageForm(): JSX.Element {
                                             onChange={field.onChange}
                                             placeholder="Select preferred truck types"
                                             className={menuStyle}
+                                            width="100%"
                                             placeholderIcon={<DropDownIcon />}
                                             multiple={true}
                                         />
@@ -319,6 +322,7 @@ export default function AddPackageForm(): JSX.Element {
                                                 onChange={field.onChange}
                                                 placeholder="Select city"
                                                 className={menuStyle}
+                                                width="100%"
                                                 placeholderIcon={<DropDownIcon />}
                                             />
                                         );
@@ -344,6 +348,7 @@ export default function AddPackageForm(): JSX.Element {
                                                 onChange={field.onChange}
                                                 placeholder="Select city"
                                                 className={menuStyle}
+                                                width="100%"
                                                 placeholderIcon={<DropDownIcon />}
                                             />
                                         );

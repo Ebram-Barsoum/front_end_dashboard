@@ -1,4 +1,4 @@
-import { accountTypeFilterOtions, orderOptions, statusFilterOption } from "../lib/constants";
+import { accountTypeFilterOtions, banStatusFilterOptions, orderOptions, statusFilterOption } from "../lib/constants";
 import { orderIconMapper, statusFilterIconMapper } from "./DashboardUsers";
 
 import AddUserIcon from "../icons/AddUserIcon";
@@ -31,7 +31,7 @@ export default function AppUsers(): JSX.Element {
                         icon={<UserIcon />}
                         className="h-[42px] ps-3 py-1 rounded-xl"
                     />
-
+                    <VLine />
                     <Filter
                         filterBy="status"
                         options={statusFilterOption}
@@ -41,6 +41,14 @@ export default function AppUsers(): JSX.Element {
                     />
                     <VLine />
 
+                    <Filter
+                        filterBy="banned"
+                        label="Ban Status"
+                        options={banStatusFilterOptions}
+                        className="h-[42px] px-[10px] py-1 rounded-xl"
+                    />
+
+                    <VLine />
                     <Filter
                         filterBy="order"
                         label="order"

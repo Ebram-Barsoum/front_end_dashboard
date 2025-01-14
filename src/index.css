@@ -16,7 +16,7 @@ a.active svg path {
   @apply stroke-white;
 }
 
-a:not(.active) svg > path {
+a:not(.active) svg>path {
   @apply stroke-grey-3;
 }
 
@@ -36,7 +36,7 @@ button:not(:has(svg)):disabled {
   @apply cursor-not-allowed;
 }
 
-form input[type="radio"]:checked + label {
+form input[type="radio"]:checked+label {
   @apply text-primary;
   @apply font-bold;
   @apply border-primary;
@@ -44,7 +44,7 @@ form input[type="radio"]:checked + label {
   @apply text-[14px];
 }
 
-form input[type="radio"]:checked + label svg path {
+form input[type="radio"]:checked+label svg path {
   @apply stroke-primary;
   @apply fill-primary;
 }
@@ -55,7 +55,7 @@ form input[type="radio"]:checked + label svg path {
 
 /*actions part style*/
 @media (max-width: 1200px) {
-  .actions .right > div {
+  .actions .right>div {
     @apply flex-wrap;
   }
 
@@ -136,4 +136,28 @@ form input[type="radio"]:checked + label svg path {
   font-size: 16px;
   font-weight: 400 !important;
   font-family: inherit !important;
+}
+
+/*Offer Negotiation Message styling*/
+.offer-negotiation-message {
+  font-size: 12px;
+  width: 8rem;
+  height: 42px;
+  position: relative;
+
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
+
+.offer-negotiation-message::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 10%;
+
+  border: 10px solid;
+  border-color: transparent transparent transparent transparent;
 }

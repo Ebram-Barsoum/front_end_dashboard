@@ -6,7 +6,11 @@ import "react-day-picker/style.css";
 
 import DateIcon from "../icons/DateIcon";
 
-export default function MonthFilter() {
+interface MonthFilterProps {
+    label?: string;
+}
+
+export default function MonthFilter({ label }: MonthFilterProps): JSX.Element {
     const [searchParams, setSearchParams] = useSearchParams();
     const [selectedMonth, setSelectedMonth] = useState<string>(searchParams.get("date") || '');
     const [displayPicker, setDisplaPicker] = useState<boolean>(false);
@@ -14,6 +18,7 @@ export default function MonthFilter() {
     useEffect(() => {
         if (selectedMonth && selectedMonth !== searchParams.get("date")) {
             searchParams.set('date', selectedMonth);
+            searchParams.set("page", "1");
             setSearchParams(searchParams);
         }
 
@@ -21,7 +26,7 @@ export default function MonthFilter() {
 
     const handleMonthChange = (date: Date) => {
         const formattedMonth = new Intl.DateTimeFormat('en-US', { month: '2-digit', year: 'numeric', formatMatcher: 'basic' }).format(date);
-        console.log(formattedMonth);
+
         setSelectedMonth(formattedMonth);
     };
 
@@ -37,7 +42,7 @@ export default function MonthFilter() {
                     onMonthChange={handleMonthChange}
                     fromYear={2020}
                 /> :
-                    <p className="cursor-pointer" onClick={() => setDisplaPicker(true)}>Date joined</p>
+                    <p className="cursor-pointer" onClick={() => setDisplaPicker(true)}>{label ? label : 'Date joined'}</p>
             }
         </div>
     )

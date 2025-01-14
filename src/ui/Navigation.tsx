@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-import { Link } from "../lib/constants";
+import { Link } from "../lib/interfaces";
 import { useAuth } from "../contexts/AuthContext";
 
 import DashboardUsersIcon from "../icons/DashboardUsersIcon";
@@ -14,6 +14,8 @@ import OffersIcon from "../icons/OffersIcon";
 import TicketsIcon from "../icons/TicketsIcon";
 import ReportsIcon from "../icons/ReportsIcon";
 import SettingIcon from "../icons/SettingIcon";
+import ShiftsIcon from "../icons/ShiftsIcon";
+import CouponsVewIcon from "../icons/CouponsVewIcon";
 
 
 const adminViews: Link[] = [
@@ -48,8 +50,8 @@ const adminViews: Link[] = [
         icon: <CompletedOrdersIcon />,
     },
     {
-        text: "Incompleted Orders",
-        href: "/incompleted-orders",
+        text: "Uncompleted offers",
+        href: "/uncompleted-offers",
         icon: <IncompletedOrdersIcon />,
     },
     {
@@ -66,6 +68,11 @@ const adminViews: Link[] = [
         text: "Reports",
         href: "/reports",
         icon: <ReportsIcon />,
+    },
+    {
+        text: 'CS Shifts',
+        href: '/shifts',
+        icon: <ShiftsIcon />
     },
     {
         text: "App Setting",
@@ -106,8 +113,8 @@ const ManagerViews: Link[] = [
         icon: <CompletedOrdersIcon />,
     },
     {
-        text: "Incompleted Orders",
-        href: "/incompleted-orders",
+        text: "Uncompleted offers",
+        href: "/uncompleted-offers",
         icon: <IncompletedOrdersIcon />,
     },
     {
@@ -124,6 +131,16 @@ const ManagerViews: Link[] = [
         text: "Reports",
         href: "/reports",
         icon: <ReportsIcon />,
+    },
+    {
+        text: 'CS Shifts',
+        href: '/shifts',
+        icon: <ShiftsIcon />
+    },
+    {
+        text: "Coupons",
+        href: "/coupons",
+        icon: <CouponsVewIcon />,
     }
 ];
 
@@ -132,6 +149,11 @@ const customerSupprtViews: Link[] = [
         text: "App Users",
         href: "/app-users",
         icon: <AppUsersIcon />,
+    },
+    {
+        text: "Verify Owners",
+        href: "/verify-owners",
+        icon: <VerifyOwnersIcon />,
     },
     {
         text: "Add Truck",
@@ -149,8 +171,8 @@ const customerSupprtViews: Link[] = [
         icon: <CompletedOrdersIcon />,
     },
     {
-        text: "Incompleted Orders",
-        href: "/incompleted-orders",
+        text: "Uncompleted offers",
+        href: "/uncompleted-offers",
         icon: <IncompletedOrdersIcon />,
     },
     {
@@ -162,7 +184,7 @@ const customerSupprtViews: Link[] = [
 
 export default function Navigation(): JSX.Element {
     const { auth } = useAuth();
-    const role = auth?.superUser.type;
+    const role = auth?.superUser?.type;
 
     const links: Link[] =
         role === "Admin"
@@ -178,6 +200,7 @@ export default function Navigation(): JSX.Element {
                     <NavLink
                         className=" w-fit flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-grey-3 lg:justify-start"
                         to={link.href}
+                        prefetch="intent"
                     >
                         {link.icon}
                         <span className="hidden lg:flex ">{link.text}</span>

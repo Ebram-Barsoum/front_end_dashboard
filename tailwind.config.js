@@ -17,8 +17,9 @@ export default {
         light: '#F7FAFB',
         card: '#FAF6FF',
         stroke: '#EDEDED',
-        warn: '#FF0C0C'
-
+        warn: '#FF0C0C',
+        accepted: '#2FBE12',
+        orange: '#FBBC04',
       }
     },
   },

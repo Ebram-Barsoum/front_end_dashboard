@@ -1,17 +1,20 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { forwardRef, ReactNode, useState } from "react";
-import Column from "./Column";
+import { toast } from "react-toastify";
 
 interface CustomeDropDownProps {
     label?: string;
     labelStyle?: string;
     placeholder?: string;
     className?: string;
+    width?: string;
     placeholderIcon?: ReactNode;
     options: string[];
     multiple?: boolean;
-    value: string | null;
-    onChange?: (option: string) => void
+    max?: number;
+    limitMessage?: string
+    value?: string | null;
+    onChange?: (option: any) => void
 }
 
 const CustomeDropDown = forwardRef<HTMLDivElement, CustomeDropDownProps>(
@@ -22,8 +25,11 @@ const CustomeDropDown = forwardRef<HTMLDivElement, CustomeDropDownProps>(
             placeholder,
             placeholderIcon,
             className,
+            width,
             options,
             multiple = false,
+            max,
+            limitMessage,
             onChange,
             value,
             ...rest
@@ -44,11 +50,22 @@ const CustomeDropDown = forwardRef<HTMLDivElement, CustomeDropDownProps>(
             }
             else {
                 if (value?.includes(option)) {
-                    const index = value.split(',').indexOf(option);
-                    onChange?.(index ? value.replace(`,${option}`, '') : value.replace(option, ''));
+                    const newOptions = value.split(',').filter((item) => {
+                        if (item !== option) return item.trim();
+                    }).join(',');
+                    onChange?.(newOptions);
                 }
                 else {
-                    onChange?.(value ? `${value},${option}` : option);
+                    if (max !== undefined && value?.split(',').length === max) {
+                        toast.error(limitMessage);
+                        return;
+                    }
+
+                    const newOptions: string[] = (value as string).split(',').filter((option) => {
+                        if (option !== '') return option.trim();
+                    });
+                    newOptions.push(option);
+                    onChange?.(newOptions.join(','));
                 }
             }
         }
@@ -58,7 +75,7 @@ const CustomeDropDown = forwardRef<HTMLDivElement, CustomeDropDownProps>(
         }
 
         return (
-            <Column className="gap-2">
+            <div className={`flex flex-col gap-2`} style={{ width }}>
                 {label && (
                     <p className={labelStyle}>
                         {label}
@@ -67,21 +84,21 @@ const CustomeDropDown = forwardRef<HTMLDivElement, CustomeDropDownProps>(
                 <div
                     ref={ref}
                     {...rest}
-                    className="relative"
-
+                    className={`relative `}
+                    style={{ width }}
                 >
                     <button
                         type="button"
-                        className={`border h-12 w-full 
+                        className={`border h-12  
                         ${className}`}
                         onClick={toggleMenu}
-
+                        style={{ width }}
                     >
-                        {value ? <span className="text-black text-base whitespace-nowrap overflow-hidden text-ellipsis">{value}</span> : placeholder}
+                        {value ? <span className={`text-black whitespace-nowrap overflow-hidden text-ellipsis`}>{value}</span> : placeholder}
                         {placeholderIcon && placeholderIcon}
                     </button>
 
-                    {displaMenu && <Column as={'ul'} className="gap-1 w-[100%] max-h-[10rem] bg-light mt-4 z-10 absolute overflow-auto">
+                    {displaMenu && <ul className={`flex flex-col gap-1 max-h-[10rem] bg-light mt-4 absolute overflow-auto z-50`} style={{ width }}>
                         {options.map((option) => (
                             <li
                                 key={option}
@@ -92,9 +109,9 @@ const CustomeDropDown = forwardRef<HTMLDivElement, CustomeDropDownProps>(
                                 {option}
                             </li>
                         ))}
-                    </Column>}
+                    </ul>}
                 </div>
-            </Column>
+            </div>
         );
     }
 );

@@ -182,6 +182,7 @@ export default function AddTruckForm(): JSX.Element {
                                         placeholderIcon={<DropDownIcon />}
                                         options={[...Trucks]}
                                         className={menuStyle}
+                                        width="100%"
                                         value={field.value}
                                         onChange={field.onChange}
                                     />
@@ -236,6 +237,7 @@ export default function AddTruckForm(): JSX.Element {
                                         placeholderIcon={<DropDownIcon />}
                                         options={[...cities]}
                                         className={menuStyle}
+                                        width="100%"
                                         value={field.value}
                                         onChange={field.onChange}
                                     />

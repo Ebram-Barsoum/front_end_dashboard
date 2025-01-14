@@ -7,6 +7,7 @@ import ProfileHeader from "./ProfileHeader";
 import Row from "./Row";
 import { ReactNode, useMemo } from "react";
 import ProfileImage from "./ProfileImage";
+import CustomerSupportShifts from "../features/Dashboard-users/CustomerSupportShifts";
 
 
 export interface ProfileProps {
@@ -23,7 +24,7 @@ export interface ProfileProps {
     children: ReactNode
 }
 
-export default function Profile({ name, email, phone, city, createdAt, type, profileImage, onClickEdit, self, children }: Partial<ProfileProps>): JSX.Element {
+export default function Profile({ id, name, email, phone, city, createdAt, type, profileImage, onClickEdit, self, children }: Partial<ProfileProps>): JSX.Element {
     const details = useMemo(() => {
         return [
             { label: "Email", value: email },
@@ -56,6 +57,9 @@ export default function Profile({ name, email, phone, city, createdAt, type, pro
                     />)}
                 </DataTable>
 
+                {
+                    (self && type === 'Customer Support') && <CustomerSupportShifts cutomerSupportId={id as string} />
+                }
                 {self && <Button
                     type="button"
                     onClick={onClickEdit}

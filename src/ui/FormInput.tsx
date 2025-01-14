@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldError } from "react-hook-form";
 import FormError from "./FormError";
 import { forwardRef, ReactNode } from "react";
@@ -17,11 +18,14 @@ interface FormInputProps {
     defaultValue?: string;
     min?: string | number | undefined;
     max?: string | number | undefined;
+    disabled?: boolean;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+    value?: any
 }
 
 const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
-    ({ type, id, placeholder, required, label, className, labelClassName, min, max, error, ...rest }, ref): JSX.Element => {
+    ({ type, id, placeholder, required, label, className, labelClassName, min, max, disabled, error, ...rest }, ref): JSX.Element => {
         return (
             <Column className="gap-2 w-full">
                 {label && <label htmlFor={id} className={`${labelClassName}`}>
@@ -35,6 +39,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
                     required={required}
                     min={min}
                     max={max}
+                    disabled={disabled}
                     {...rest}
                     ref={ref}
                     aria-invalid={!!error}

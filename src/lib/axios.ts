@@ -21,7 +21,7 @@ axiosInstance.interceptors.request.use(
 const refreshToken = async () => {
     try {
         const { refreshToken } = JSON.parse(localStorage.getItem('auth') || '{}');
-        const { data } = await axiosInstance.post(`http://localhost:3000/api/v1/super-users/refresh?lang=en`, { refreshToken });
+        const { data } = await axiosInstance.post(`http://localhost:3000/api/v1/dashboard/super-users/refresh?lang=en`, { refreshToken });
 
         return data;
     }
@@ -45,7 +45,7 @@ axiosInstance.interceptors.response.use(
                 // update auth data in local storage
                 const auth = JSON.parse(localStorage.getItem('auth') || '{}');
                 localStorage.setItem('auth', JSON.stringify({ ...auth, ...response }));
-                console.log(JSON.parse(localStorage.getItem('auth') || '{}'));
+                //console.log(JSON.parse(localStorage.getItem('auth') || '{}'));
 
                 //update token in axios instance
                 axiosInstance.defaults.headers.common["Authorization"] = `Beare ${response?.authToken}`;

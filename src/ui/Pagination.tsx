@@ -44,23 +44,26 @@ export default function Pagination({
 
     const handlePrevPage = () => {
         if (currentPage > 1) {
-            searchParams.set("page", (currentPage - 1).toString());
-            setSearchParams(searchParams);
+            const updatedSearchParams = new URLSearchParams(searchParams.toString());
+            updatedSearchParams.set("page", (currentPage - 1).toString());
+            setSearchParams(updatedSearchParams);
         }
     };
 
     const handleNextPage = () => {
         if (currentPage < totalPages) {
-            searchParams.set("page", (currentPage + 1).toString());
-            setSearchParams(searchParams);
+            const updatedSearchParams = new URLSearchParams(searchParams.toString());
+            updatedSearchParams.set("page", (currentPage + 1).toString());
+            setSearchParams(updatedSearchParams);
         }
     };
 
     const handleChangePage = (page: number) => {
         if (page === currentPage || page < 1 || page > totalPages) return;
 
-        searchParams.set("page", String(page));
-        setSearchParams(searchParams);
+        const updatedSearchParams = new URLSearchParams(searchParams.toString());
+        updatedSearchParams.set("page", (page).toString());
+        setSearchParams(updatedSearchParams);
     };
 
     return (

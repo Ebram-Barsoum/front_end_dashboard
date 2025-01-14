@@ -18,6 +18,7 @@ export default function ProfileActions({
         <>
             {actions.map((action: Action, index) => (
                 <button
+                    type="button"
                     key={index}
                     disabled={loading}
                     onClick={() => {

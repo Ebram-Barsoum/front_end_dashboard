@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Button from "./Button";
 import Column from "./Column";
 import Row from "./Row";
 
 interface DeleteAlertProps {
-    onConfirm?: () => void;
+    onConfirm?: (e: any | void) => void;
     onCancel?: () => void;
     disabled: boolean;
 }

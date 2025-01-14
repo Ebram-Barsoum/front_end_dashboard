@@ -6,9 +6,9 @@ import Loader from "./Loader";
 import Message from "./Message";
 
 interface DataFetcherProps {
-    dataKey: string,
+    dataKey: string | string[],
     fetcher: (params: string) => Promise<any>
-    render: (data: any[]) => JSX.Element
+    render: (data: any[] | any) => JSX.Element
 }
 
 export default function DataFetcher({ dataKey, fetcher, render }: DataFetcherProps): JSX.Element {

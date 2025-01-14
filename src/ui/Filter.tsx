@@ -18,7 +18,7 @@ export default function Filter({
     filterBy,
     label,
     options,
-    icon,
+    icon = null,
     iconMapper,
     className,
 }: FilterProps): JSX.Element {
@@ -29,12 +29,13 @@ export default function Filter({
 
     const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         searchParams.set(filterBy, e.target.value);
+        searchParams.set("page", "1");
         setSearchParams(searchParams);
         setSelectedOption(e.target.value);
     };
 
     return (
-        <Row className={`gap-0 ${className} ${selectedOption ? 'bg-light' : 'border border-stroke'}`}>
+        <Row className={`gap-0 ${className} ${selectedOption ? 'bg-light' : 'border border-stroke '}`}>
             {iconMapper?.[selectedOption] || icon}
 
             <select
@@ -44,8 +45,7 @@ export default function Filter({
                 className={`capitalize outline-none appearance-none bg-transparent cursor-pointer `}
             >
                 <option value="" hidden>
-                    {" "}
-                    {label || filterBy}{" "}
+                    {(label || filterBy)}
                 </option>
 
                 {options.map((option) => (
@@ -54,10 +54,10 @@ export default function Filter({
                         value={option.value}
                         className="flex items-center gap-1"
                     >
-                        {option.value}
+                        {option.name || option.value}
                     </option>
                 ))}
             </select>
-        </Row>
+        </Row >
     );
 }

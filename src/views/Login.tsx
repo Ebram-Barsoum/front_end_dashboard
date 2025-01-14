@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 export default function Login(): JSX.Element {
     const { auth } = useAuth();
 
+    if (auth?.superUser?.type === 'Customer Support') return <Navigate to={'/app-users'} />;
     if (auth?.authToken) return <Navigate to={'/'} />;
 
     return (

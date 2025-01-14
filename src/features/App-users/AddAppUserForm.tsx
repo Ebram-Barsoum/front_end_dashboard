@@ -303,7 +303,9 @@ export default function AddAppUserForm(): JSX.Element {
                                     placeholderIcon={<DropDownIcon />}
                                     value={field.value}
                                     onChange={field.onChange}
-                                    className={menuStyle} />
+                                    className={menuStyle}
+                                    width="100%"
+                                />
                                 {errors.city && <FormError message={errors.city.message} />}
                             </Column>
                         )}
